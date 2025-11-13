@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* App styles */
+:root {
+  color-scheme: light;
+}
+
+/* Smooth section scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
