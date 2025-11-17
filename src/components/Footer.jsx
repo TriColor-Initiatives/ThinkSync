@@ -10,11 +10,12 @@ export default function Footer() {
         <div className="grid items-start gap-8 md:grid-cols-3">
           <div>
             <div className="flex items-center gap-2">
-              <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary-600 font-bold text-white">SB</div>
-              <span className="text-lg font-semibold text-slate-900">Study Buddy</span>
+              <span className="text-xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+                Think Sync
+              </span>
             </div>
             <p className="mt-3 max-w-sm text-sm text-slate-600">
-              Learn faster with interactive explanations, animations, and 3D visualizations.
+              Get instant answers, visual explanations, and AI-powered learning tools.
             </p>
           </div>
           <div className="flex gap-8">
@@ -74,7 +75,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 flex items-center justify-between border-t border-slate-200 pt-6 text-xs text-slate-500">
-          <p>(c) {year} Study Buddy</p>
+          <p>(c) {year} Think Sync</p>
           <p>Built with React & Tailwind CSS</p>
         </div>
       </div>

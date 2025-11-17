@@ -1,6 +1,9 @@
 import React from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 
+// Import logos
+import tricolorLogo from '../assets/tricolor_logo.png'
+
 const navItems = [
   { label: 'Home', type: 'home' },
   { label: 'Classes', type: 'section', target: 'classes' },
@@ -66,24 +69,32 @@ export default function NavBar() {
   }
 
   return (
-    <header className="sticky top-0 z-30 border-b border-slate-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
-          <Link to="/" className="flex items-center gap-2" onClick={() => handleSectionNav('home')}>
-            <div className="inline-flex h-8 w-8 items-center justify-center rounded-md bg-primary-600 text-white font-bold">SB</div>
-            <span className="text-lg font-semibold text-slate-900">Study Buddy</span>
+    <header className="sticky top-0 z-30 border-b border-slate-200 bg-gradient-to-r from-blue-50 via-purple-50 to-blue-50 backdrop-blur supports-[backdrop-filter]:bg-gradient-to-r supports-[backdrop-filter]:from-blue-50/80 supports-[backdrop-filter]:via-purple-50/80 supports-[backdrop-filter]:to-blue-50/80">
+      <div className="w-full pl-4 pr-1 sm:pl-6 sm:pr-2 lg:pl-8 lg:pr-4">
+        <div className="relative flex h-16 items-center justify-between gap-4">
+          {/* Left column: Think Sync brand */}
+          <Link to="/" className="flex items-center gap-3 flex-shrink-0" onClick={() => handleSectionNav('home')}>
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gradient-to-br from-primary-600 to-primary-700 text-white font-bold text-lg shadow-md shadow-primary-500/30">
+              TS
+            </div>
+            <span className="text-2xl font-bold tracking-tight bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent">
+              Think Sync
+            </span>
           </Link>
-          <nav className="hidden items-center gap-6 md:flex">
+
+          {/* Center column: navigation links */}
+          <nav className="hidden md:flex flex-1 items-center justify-center gap-6">
             {navItems.map((item) => renderNavItem(item))}
-            <a
-              href="#login"
-              className="rounded-md border border-primary-600 px-4 py-2 text-primary-700 transition hover:bg-primary-50"
-            >
-              Login / Signup
-            </a>
           </nav>
+
+          {/* Right column: TriColor Initiatives logo */}
+          <div className="hidden md:flex justify-end flex-shrink-0 -mr-2 sm:-mr-3 lg:-mr-4">
+            <img src={tricolorLogo} alt="TriColor Initiatives" className="h-14 w-auto object-contain" />
+          </div>
+
+          {/* Mobile menu button */}
           <button
-            className="inline-flex items-center justify-center rounded-md p-2 text-slate-700 hover:bg-slate-100 md:hidden"
+            className="md:hidden absolute right-0 top-1/2 -translate-y-1/2 inline-flex items-center justify-center rounded-md p-2 text-slate-700 hover:bg-slate-100"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle navigation"
           >
@@ -96,13 +107,9 @@ export default function NavBar() {
           <div className="border-t border-slate-200 py-4 md:hidden">
             <div className="flex flex-col gap-3">
               {navItems.map((item) => renderNavItem(item))}
-              <a
-                href="#login"
-                className="rounded-md border border-primary-600 px-4 py-2 text-center text-primary-700"
-                onClick={closeMobile}
-              >
-                Login / Signup
-              </a>
+              <div className="flex items-center justify-end pt-3 border-t border-slate-200">
+                <img src={tricolorLogo} alt="TriColor Initiatives" className="h-10 w-auto object-contain" />
+              </div>
             </div>
           </div>
         )}
