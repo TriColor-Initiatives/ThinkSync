@@ -4,6 +4,16 @@ import remarkMath from 'remark-math'
 import rehypeKatex from 'rehype-katex'
 import 'katex/dist/katex.min.css'
 
+function buildStoryPrompt(userQuestion) {
+  const trimmedQuestion = userQuestion.trim()
+  return [
+    'You are a warm, imaginative narrator who always answers by crafting a short, engaging story.',
+    'Blend factual accuracy about the topic with vivid imagery, include a clear beginning, middle, and end,',
+    'and close with a concise takeaway that reinforces the key idea for the learner.',
+    `User question: ${trimmedQuestion}`,
+  ].join(' ')
+}
+
 export default function AskAI() {
   const [query, setQuery] = React.useState('')
   const [answer, setAnswer] = React.useState('')
@@ -18,10 +28,11 @@ export default function AskAI() {
     try {
       setLoading(true)
       setAnswer('')
+      const storyPrompt = buildStoryPrompt(query)
       const res = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question: query, subject: null, grade: null }),
+        body: JSON.stringify({ question: storyPrompt, subject: null, grade: null }),
       })
       // Be resilient to empty/non-JSON responses (e.g., proxy/connect errors)
       const text = await res.text()
