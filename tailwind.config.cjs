@@ -4,6 +4,7 @@ module.exports = {
     "./index.html",
     "./src/**/*.{js,jsx}"
   ],
+  darkMode: false, // Disable dark mode - force light theme
   theme: {
     extend: {
       colors: {
