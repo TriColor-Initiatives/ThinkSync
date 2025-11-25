@@ -76,9 +76,9 @@ function NotFoundPage() {
 
 export default function App() {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col bg-white">
       <NavBar />
-      <div className="flex-1">
+      <div className="flex-1 bg-white">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/class/:id" element={<ClassPage />} />

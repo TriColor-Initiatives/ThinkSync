@@ -1,8 +1,11 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import fetch from 'node-fetch'
+import { fileURLToPath } from 'url'
+import path from 'path'
 
-dotenv.config()
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
+dotenv.config({ path: path.join(__dirname, '..', '.env') })
 
 const app = express()
 const PORT = process.env.PORT || 3001
@@ -27,10 +30,35 @@ app.post('/api/ask', async (req, res) => {
       return res.status(400).json({ error: 'Invalid request: "question" is required' })
     }
 
+    // Build context-aware system message
+    let systemMessage = 'You are a warm, helpful, and engaging tutor who explains concepts clearly and in an age-appropriate manner.'
+    
+    if (grade) {
+      systemMessage += ` The student is in Class ${grade}.`
+      // Adjust explanation depth based on class level
+      const classNum = parseInt(grade)
+      if (classNum <= 8) {
+        systemMessage += ' Use simple language, concrete examples, and avoid complex jargon. Make explanations fun and relatable.'
+      } else if (classNum <= 10) {
+        systemMessage += ' Use clear language with some technical terms where appropriate. Provide practical examples and real-world connections.'
+      } else {
+        systemMessage += ' You can use more advanced terminology and deeper explanations. Include analytical perspectives and detailed examples.'
+      }
+    }
+    
+    if (subject) {
+      systemMessage += ` The question is related to ${subject}.`
+      if (grade) {
+        systemMessage += ` Tailor your explanation to Class ${grade} ${subject} curriculum level.`
+      }
+    }
+    
+    systemMessage += ' Always be encouraging, break down complex ideas into digestible parts, and use examples that students can relate to.'
+
     const body = {
       model: MODEL,
       messages: [
-        { role: 'system', content: 'You are a helpful tutor. Explain clearly and concisely.' },
+        { role: 'system', content: systemMessage },
         { role: 'user', content: question },
       ],
       temperature: 0.2,
